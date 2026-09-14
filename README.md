@@ -10,9 +10,12 @@ Build: esbuild + TypeScript + GSAP.
 ## Uso en el host
 
 ```html
-<div data-aa-mount data-aa-theme="light" data-aa-lang="es"></div>
-<!-- loader: pendiente F4 (Vercel) -->
+<script src="https://<dominio-vercel>/loader.js" data-cfasync="false"></script>
+<div data-aa-mount="performance-latam-2026" data-aa-theme="light" data-aa-lang="es"></div>
 ```
+
+`loader.js` inyecta `dist/landing.css` y `dist/landing.js` desde su mismo dominio. No convive en la
+misma página con otro embed que use `data-aa-mount` (el bundle monta en todos).
 
 ## Desarrollo
 

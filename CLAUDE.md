@@ -9,8 +9,8 @@ Build: esbuild + TypeScript + GSAP. Design language: OSMO.
 | Campo | Valor |
 |---|---|
 | Origen | `~/Desktop/SoftwareDevProjects/ATOM_Academy` (repo `karenrebecag/Academy_LP`) |
-| Repo | pendiente (puede ser privado: no depende de jsDelivr) |
-| Distribución | loader en Vercel (patrón de `atom-whatsapp-buttons`): `/v1/loader.js` con CORS, assets con hash immutable. Fallback: jsDelivr si Vercel da problemas |
+| Repo | `AtomGrowth/performancelatam2026` (público), rama `main` |
+| Distribución | loader en Vercel (patrón de `atom-mountpoint-pages`): `/loader.js` inyecta `dist/landing.{css,js}`; CORS y cache 300 s en `vercel.json`. Assets sin hash por ahora |
 | Bundle | `dist/landing.js` + `dist/landing.css` |
 
 ## Decisiones
