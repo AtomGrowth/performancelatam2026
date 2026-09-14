@@ -10,3 +10,6 @@ media/
 
 # Assets de video para subir a R2 (no van en el bundle público)
 cloudflare-r2/
+
+# Salida de Vercel, se arma en el build
+public/

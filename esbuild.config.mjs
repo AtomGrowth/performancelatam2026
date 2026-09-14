@@ -1,5 +1,5 @@
 import * as esbuild from 'esbuild';
-import { cpSync } from 'node:fs';
+import { cpSync, rmSync } from 'node:fs';
 
 // Self-hosted fonts: copia src/fonts → dist/fonts. Las @font-face referencian
 // ./fonts/... (relativo a dist/landing.css), así que deben vivir junto al CSS.
@@ -45,4 +45,9 @@ if (watch || serve) {
   }
 } else {
   await Promise.all([esbuild.build(jsOptions), esbuild.build(cssOptions)]);
+  // Vercel exige un directorio de salida: public/ replica las rutas del preview local (loader en la
+  // raíz, bundle bajo /dist) para que loader.js y el snippet de Webflow no cambien.
+  rmSync('public', { recursive: true, force: true });
+  cpSync('dist', 'public/dist', { recursive: true });
+  cpSync('loader.js', 'public/loader.js');
 }
