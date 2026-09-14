@@ -1,0 +1,217 @@
+/* Stats + encabezado partido. Estructura tomada de Relume (Stats 2, 14 y 44) sobre tokens
+   --aa-*. El valor va en tinta de texto; el acento solo marca el filete, nunca el número
+   (el verde sobre blanco no da contraste de texto). */
+
+.aa-landing .aa-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ─── Encabezado partido (Stats 2): título a la izquierda, texto a la derecha ─── */
+.aa-landing .aa-split-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--aa-gap-m) var(--aa-gap-xxl);
+  align-items: start;
+}
+
+.aa-landing .aa-stats-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--aa-gap-xxl);
+}
+
+/* ─── Lista de stats (<dl>) ────────────────────────────────────────────────────── */
+.aa-landing .aa-stats {
+  margin: 0;
+  display: grid;
+  gap: var(--aa-gap-l);
+}
+.aa-landing .aa-stats--row { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+.aa-landing .aa-stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--aa-gap-xs);
+  padding-left: var(--aa-gap-m);
+  border-left: 2px solid var(--aa-accent);
+}
+.aa-landing .aa-stat :is(dt, dd) { margin: 0; }
+
+/* El <dt> va primero en el DOM (semántica); el valor se pinta arriba con order. */
+.aa-landing .aa-stat__value {
+  order: -1;
+  font-family: var(--aa-font-display);
+  font-weight: var(--aa-weight-bold);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--aa-fg);
+  white-space: nowrap;
+}
+.aa-landing .aa-stat--m .aa-stat__value  { font-size: var(--aa-text-l); }
+.aa-landing .aa-stat--l .aa-stat__value  { font-size: var(--aa-text-xxl); }
+.aa-landing .aa-stat--xl .aa-stat__value { font-size: clamp(4.5rem, 11vw, 10rem); }
+
+.aa-landing .aa-stat__label {
+  max-width: 22em;
+  font-size: var(--aa-text-s);
+  line-height: 1.35;
+  color: var(--aa-fg-muted);
+  text-wrap: balance; /* evita la última palabra huérfana ("promedio.") */
+}
+.aa-landing .aa-stat__note {
+  font-family: var(--aa-font-mono);
+  font-size: var(--aa-text-xs);
+  color: var(--aa-fg-subtle);
+}
+
+/* ─── Aside (Stats 14): texto a la izquierda, stat grande a la derecha ─────────── */
+.aa-landing .aa-stat-aside {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: var(--aa-gap-xl) var(--aa-gap-xxl);
+  align-items: center;
+}
+
+/* ─── Cifra sobre imagen ─────────────────────────────────────────────────────────── */
+.aa-landing .aa-stat-aside:has(> .aa-stat-media) { align-items: stretch; }
+.aa-landing .aa-stat-media {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  min-height: 28rem;
+  overflow: hidden;
+  border-radius: var(--aa-radius-sheet);
+  background: var(--aa-bg-subtle);
+}
+@supports (corner-shape: squircle) {
+  .aa-landing .aa-stat-media {
+    corner-shape: squircle;
+    border-radius: calc(var(--aa-radius-sheet) * 2);
+  }
+}
+.aa-landing .aa-stat-media__img {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.aa-landing .aa-stat-media--placeholder {
+  background: color-mix(in srgb, var(--aa-fg) 8%, transparent); /* mismo tono que .aa-split__media--placeholder */
+  border: 1px dashed color-mix(in srgb, var(--aa-fg) 25%, transparent);
+}
+.aa-landing .aa-stat-media--placeholder .aa-split__placeholder-label {
+  position: absolute;
+  top: var(--aa-padding-s);
+  right: var(--aa-padding-s);
+}
+/* La placa es blanca también dentro de bandas oscuras: se re-anclan los tokens de tinta. */
+.aa-landing .aa-stats.aa-stat-media__plate {
+  --aa-fg:        var(--aa-neutral-950);
+  --aa-fg-muted:  var(--aa-neutral-600);
+  --aa-fg-subtle: var(--aa-neutral-400);
+  width: fit-content;
+  max-width: 100%;
+  margin: 0;
+  padding: var(--aa-padding-m);
+  background: var(--aa-surface-card);
+  color: var(--aa-fg);
+}
+
+/* fit-content toma el ancho de la etiqueta (22em): se acota para que la placa quede compacta. */
+.aa-landing .aa-stat-media__plate .aa-stat__label { max-width: 15em; }
+
+/* ─── Cards (Stats 44): título arriba, valor a la derecha, nota bajo un filete ─── */
+.aa-landing .aa-stat-cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--aa-gap-m);
+}
+.aa-landing .aa-stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--aa-gap-l);
+  padding: var(--aa-padding-m);
+  background: var(--aa-surface-card);
+  border: 1px solid var(--aa-border);
+  border-radius: var(--aa-radius-l);
+}
+/* En bloques de color la card sube un escalón sobre el fondo en vez de quedar blanca: con los
+   tokens remapeados (tinta clara en sheet) el texto desaparecería sobre blanco. */
+.aa-landing :is([data-aa-surface="sheet"], [data-aa-surface="accent"], [data-aa-surface="card-dark"]) .aa-stat-card {
+  background: var(--aa-bg-subtle);
+}
+.aa-landing .aa-stat-card__title { margin: 0; }
+.aa-landing .aa-stat-card .aa-stats { gap: 0; }
+.aa-landing .aa-stat-card .aa-stat {
+  align-items: flex-end;
+  padding-left: 0;
+  border-left: 0;
+  text-align: right;
+}
+.aa-landing .aa-stat-card .aa-stat__note {
+  align-self: stretch;
+  margin-top: var(--aa-gap-s);
+  padding-top: var(--aa-gap-s);
+  border-top: 1px solid var(--aa-border);
+}
+
+/* ─── Figura centrada dentro de un statement ───────────────────────────────────── */
+.aa-landing .aa-stats--center .aa-stat {
+  align-items: center;
+  padding-left: 0;
+  border-left: 0;
+  text-align: center;
+}
+.aa-landing .aa-stats--center .aa-stat__label { max-width: 24em; }
+
+/* ─── Ficha técnica (Description List 1) ───────────────────────────────────────── */
+.aa-landing .aa-facts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--aa-gap-l);
+}
+.aa-landing .aa-facts__list {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--aa-gap-l) var(--aa-gap-xxl); /* columna igual que .aa-split-head */
+}
+.aa-landing .aa-facts__item :is(dt, dd) { margin: 0; }
+.aa-landing .aa-facts__term {
+  margin-bottom: var(--aa-gap-xxs);
+  font-family: var(--aa-font-mono);
+  font-size: var(--aa-text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--aa-fg);
+}
+.aa-landing .aa-facts__desc {
+  max-width: 34em;
+  font-size: var(--aa-text-s);
+  line-height: 1.5;
+  color: var(--aa-fg-muted);
+}
+
+/* ─── Responsive ───────────────────────────────────────────────────────────────── */
+@media screen and (max-width: 991px) {
+  .aa-landing .aa-stats--row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .aa-landing .aa-facts__list,
+  .aa-landing .aa-split-head,
+  .aa-landing .aa-stat-aside { grid-template-columns: 1fr; }
+}
+
+@media screen and (max-width: 479px) {
+  .aa-landing .aa-stats--row { grid-template-columns: 1fr; }
+}

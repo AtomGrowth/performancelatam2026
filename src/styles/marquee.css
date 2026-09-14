@@ -1,0 +1,44 @@
+/* Banda separadora bajo el hero (variante compact del ScrollSwapMarquee del portfolio, MWG 024):
+   dos filas apiladas con loop horizontal en sentidos opuestos y swap vertical atado al scroll.
+   Colores explícitos y no data-aa-section-theme: la regla de tema pintaría otro fondo encima. */
+
+.aa-landing .aa-band {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(0.7rem, 1.4vw, 1.4rem);
+  background: var(--aa-surface-obsidian);
+  color: var(--aa-neutral-50);
+  font-family: var(--aa-font-display);
+  font-size: clamp(1.15rem, 2.6vw, 2.25rem);
+  font-weight: var(--aa-weight-bold);
+  line-height: 1.15; /* 1 recortaba las tildes en mayúscula (LEÍDOS) */
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.aa-landing .aa-band__rows { position: relative; }
+
+.aa-landing .aa-band__sentence { overflow: hidden; }
+.aa-landing .aa-band__sentence.is--2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.aa-landing .aa-band__line {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  margin: 0;
+  white-space: nowrap;
+  will-change: transform;
+}
+.aa-landing .aa-band__line > span { padding: 0 0.12em; }
+
+.aa-landing .aa-band__glyph {
+  flex: none;
+  width: clamp(0.85rem, 1.5vw, 1.4rem);
+  height: auto;
+  margin: 0 0.45em;
+  color: var(--aa-accent);
+}

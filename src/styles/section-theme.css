@@ -1,0 +1,124 @@
+/* Section themes + superficies. Adaptado del data-theme-section de OSMO: se remapean los tokens
+   --aa-* por sección y los componentes se adaptan solos. Las superficies (data-aa-surface)
+   generalizan lo que Academy resolvía por id (#aa-tesis, #aa-generacion…): el ritmo lo declara
+   content.ts y este archivo no conoce ninguna sección concreta. */
+
+/* Token set OSCURO — compartido por el tema global y las secciones dark */
+.aa-landing[data-aa-theme="dark"],
+.aa-landing [data-aa-section-theme="dark"] {
+  --aa-bg:        var(--aa-neutral-950);
+  --aa-bg-subtle: var(--aa-neutral-900);
+  --aa-fg:        var(--aa-neutral-50);
+  --aa-fg-muted:  var(--aa-neutral-400);
+  --aa-fg-subtle: var(--aa-neutral-600);
+  --aa-border:    var(--aa-neutral-800);
+  --aa-input-bg:  var(--aa-neutral-850);
+}
+
+/* Token set CLARO — re-asegura los valores base cuando una sección light
+   vive dentro de un tema global dark (estrato autónomo) */
+.aa-landing [data-aa-section-theme="light"] {
+  --aa-bg:        var(--aa-neutral-50);
+  --aa-bg-subtle: var(--aa-neutral-100);
+  --aa-fg:        var(--aa-neutral-950);
+  --aa-fg-muted:  var(--aa-neutral-600);
+  --aa-fg-subtle: var(--aa-neutral-400);
+  --aa-border:    var(--aa-neutral-200);
+  --aa-input-bg:  var(--aa-neutral-200);
+}
+
+/* Cada sección con tema pinta su propio strip a partir de los tokens remapeados */
+.aa-landing [data-aa-section-theme] {
+  background-color: var(--aa-bg);
+  color: var(--aa-fg);
+}
+
+/* canvas: las strips light van transparentes y dejan ver el bg fijo texturizado global
+   (.aa-bg-fixed), así se pinta una sola vez. */
+.aa-landing [data-aa-section-theme="light"] {
+  background-color: transparent;
+}
+
+/* ─── Superficies ─────────────────────────────────────────────────────────────── */
+
+/* sheet y card-dark: obsidian en lugar de negro puro (menos duro, se lee como material). */
+.aa-landing [data-aa-surface="sheet"],
+.aa-landing [data-aa-surface="card-dark"] {
+  --aa-bg:        var(--aa-surface-obsidian);
+  --aa-bg-subtle: var(--aa-surface-obsidian-subtle);
+}
+.aa-landing .aa-container--card[data-aa-surface="card-dark"] {
+  background: var(--aa-bg);
+}
+
+/* accent: el pico de color. Tinta oscura con jerarquía por opacidad (el gris muted no contrasta
+   sobre verde) y el acento pasa a tinta para que filetes y marcas no desaparezcan. */
+.aa-landing [data-aa-surface="accent"] {
+  --aa-bg:        var(--aa-color-electric);
+  --aa-bg-subtle: color-mix(in srgb, var(--aa-color-electric) 88%, var(--aa-neutral-950));
+  --aa-fg:        var(--aa-neutral-950);
+  --aa-fg-muted:  color-mix(in srgb, var(--aa-neutral-950) 82%, transparent);
+  --aa-fg-subtle: color-mix(in srgb, var(--aa-neutral-950) 64%, transparent);
+  --aa-border:    color-mix(in srgb, var(--aa-neutral-950) 18%, transparent);
+  --aa-accent:    var(--aa-neutral-950);
+  background-color: var(--aa-bg); /* gana al transparent de las secciones light */
+}
+
+/* Textura: la misma curva topográfica del canvas en todos los bloques, para continuidad. */
+/* clip y no hidden: hidden crea un contenedor de scroll y rompe el position: sticky de los hijos. */
+.aa-landing :is([data-aa-surface="sheet"], [data-aa-surface="accent"]) {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+}
+.aa-landing :is([data-aa-surface="sheet"], [data-aa-surface="accent"])::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: var(--aa-texture);
+  background-repeat: repeat;
+  background-size: 620px auto;
+  pointer-events: none;
+}
+.aa-landing [data-aa-surface="accent"]::before {
+  mix-blend-mode: overlay;
+  opacity: 0.45;
+}
+/* Sobre oscuro se invierte: líneas claras muy tenues en vez de oscurecer lo ya oscuro. */
+.aa-landing [data-aa-surface="sheet"]::before {
+  filter: invert(1);
+  mix-blend-mode: screen;
+  opacity: 0.06;
+}
+
+/* ─── Bloques: fusión ─────────────────────────────────────────────────────────── */
+/* Las bandas de color van a sangre y pegadas, sin radio ni separación: el ritmo lo da el cambio
+   de superficie. Una sección con join continúa el bloque anterior sin repetir su padding. */
+.aa-landing .aa-section--joined {
+  padding-top: 0;
+}
+
+/* ─── media: video de fondo con overlay oscuro; el contenido vive sobre ambos ────── */
+.aa-landing .aa-section--media {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+.aa-section__media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+.aa-section__media video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.aa-section__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 18, 18, 0.74);
+}

@@ -1,0 +1,89 @@
+/* atom-academy · landing page design system (OSMO-inspired, token-based). */
+/* Índice: esbuild inlinea estos @import en un solo dist/landing.css.          */
+/* Toda la especificidad vive bajo .aa-landing para no colisionar con Elementor. */
+
+/* Inter Tight (body) desde Google Fonts — debe ir primero (regla @import). */
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap');
+
+@import "./fonts.css";
+@import "./tokens.css";
+@import "./typography.css";
+@import "./layout.css";
+@import "./components.css";
+@import "./hero.css";
+@import "./ripple.css";
+@import "./marquee.css";
+@import "./sections.css";
+@import "./accordion.css";
+@import "./split.css";
+@import "./rotating-text.css";
+@import "./info.css";
+@import "./stats.css";
+@import "./map.css";
+@import "./form.css";
+@import "./section-theme.css";
+
+/* Scrollbar electric. Selector gateado a :has(.aa-landing) para no afectar otras
+   páginas de Elementor (solo aplica cuando la landing está montada). */
+:root:has(.aa-landing) {
+  scrollbar-width: thin;
+  scrollbar-color: var(--aa-color-electric) transparent;
+}
+:root:has(.aa-landing)::-webkit-scrollbar { width: 10px; height: 10px; }
+:root:has(.aa-landing)::-webkit-scrollbar-track { background: transparent; }
+:root:has(.aa-landing)::-webkit-scrollbar-thumb {
+  background: var(--aa-color-electric);
+  border-radius: var(--aa-radius-pill);
+}
+
+/* Reset box-sizing: sin esto, width:100% + padding desbordan los contenedores y el
+   overflow-x: clip del root recorta el contenido por la derecha en todas las strips. */
+.aa-landing *,
+.aa-landing *::before,
+.aa-landing *::after {
+  box-sizing: border-box;
+}
+
+/* ─── Root wrapper ────────────────────────────────────────────────────────────── */
+.aa-landing {
+  font-family: var(--aa-font);
+  font-size: var(--aa-size-font);
+  color: var(--aa-fg);
+  background: var(--aa-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip; /* contiene cualquier desborde horizontal (tablas, scribble) sin romper sticky */
+  isolation: isolate; /* contexto de apilado: contiene el bg fijo (z-index -1) */
+}
+
+/* Fondo fijo global: color claro + textura topográfica con blend, pineado al viewport.
+   Detrás de todo (z-index -1, dentro del contexto de .aa-landing). Las strips light
+   van transparentes y lo dejan ver; las dark lo cubren con su color sólido. */
+.aa-landing .aa-bg-fixed {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  isolation: isolate; /* el multiply de la textura solo mezcla con el color de este bg */
+  background-color: var(--aa-surface-canvas);
+  pointer-events: none;
+}
+.aa-landing .aa-bg-fixed__texture {
+  position: absolute;
+  inset: 0;
+  background-repeat: repeat;
+  background-size: 620px auto;
+  mix-blend-mode: multiply; /* deja ver las curvas topográficas sobre el blanco */
+  opacity: 0.12;
+}
+
+/* Dark theme global + section themes (strips) viven en section-theme.css. */
+
+/* ─── Utilities ───────────────────────────────────────────────────────────────── */
+.aa-landing .aa-text-center  { text-align: center; }
+.aa-landing .aa-text-balance { text-wrap: balance; }
+.aa-landing .aa-text-accent  { color: var(--aa-accent); }
+.aa-landing .aa-flex-col     { display: flex; flex-direction: column; }
+.aa-landing .aa-flex-center  { display: flex; align-items: center; justify-content: center; }
+.aa-landing .aa-gap-s        { gap: var(--aa-gap-s); }
+.aa-landing .aa-gap-m        { gap: var(--aa-gap-m); }
+.aa-landing .aa-gap-l        { gap: var(--aa-gap-l); }

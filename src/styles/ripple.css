@@ -1,0 +1,35 @@
+/* Letter ripple (port de MWG 041). Dos capas de letras: la oculta espera justo encima del recorte y
+   ambas bajan una línea en cascada. La caja usa su propio line-height (1.25) para que ningún glifo
+   (acentos, descendentes) sobresalga de su línea y asome fuera del recorte; el margen negativo
+   devuelve el interlineado del contexto, que cada uso declara en --aa-ripple-host. */
+
+/* --aa-ripple-bleed: el tracking negativo acorta la caja y el overflow cortaba el último glifo
+   (la "p" de WhatsApp, el "6" de 2026); se agranda el recorte a los lados sin mover el layout. */
+.aa-landing .aa-ripple {
+  --aa-ripple-leading: 1.25;
+  --aa-ripple-bleed: 0.08em;
+  padding-inline: var(--aa-ripple-bleed);
+  margin-inline: calc(var(--aa-ripple-bleed) * -1);
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: top;
+  line-height: var(--aa-ripple-leading);
+  margin-block: calc((var(--aa-ripple-host, 1.25) - var(--aa-ripple-leading)) * 0.5em);
+  transition: color var(--aa-duration-s) var(--aa-ease);
+}
+.aa-landing .aa-ripple:hover { color: var(--aa-accent); }
+
+.aa-landing .aa-ripple__layer { display: block; }
+.aa-landing .aa-ripple__layer.is--hidden {
+  position: absolute;
+  bottom: 100%;
+  left: var(--aa-ripple-bleed);
+  pointer-events: none;
+}
+.aa-landing .aa-ripple__layer > span {
+  display: inline-block;
+  will-change: transform;
+}
+.aa-landing .aa-ripple.is--hovered span { pointer-events: none; }

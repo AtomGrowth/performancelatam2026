@@ -1,0 +1,97 @@
+/* atom-academy · sección info. Statement grande a la izquierda + lista de filas
+   label/párrafo a la derecha (split editorial). Colapsa a una sola columna en
+   <=991px (heading arriba, lista debajo). */
+
+.aa-landing .aa-info__wrap {
+  display: flex;
+  justify-content: center;
+}
+
+/* Grid 2 columnas iguales, la misma retícula que .aa-split-head: así una sección split unida
+   encima (Benchmark) comparte columnas con la lista. El gap de fila gobierna la separación
+   heading/lista cuando colapsa a 1 columna. */
+.aa-landing .aa-info__large-col {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--aa-gap-m) var(--aa-gap-xxl);
+  align-items: start;
+}
+
+.aa-landing .aa-info__title {
+  max-width: none; /* la columna gobierna el ancho del heading */
+}
+
+.aa-landing .aa-info__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--aa-gap-l);
+}
+
+/* Título sobre párrafo: en media columna, label | párrafo partía los títulos en cuatro líneas. */
+.aa-landing .aa-info__li {
+  display: flex;
+  flex-direction: column;
+  gap: var(--aa-gap-xs);
+  align-items: flex-start;
+  padding-top: var(--aa-gap-m);
+  border-top: 1px solid var(--aa-border);
+}
+
+.aa-landing .aa-info__li-title :is(h3, h4) { margin: 0; }
+
+.aa-landing .aa-info__li-desc {
+  margin: 0;
+  max-width: 30em;
+  font-size: var(--aa-text-s);
+  line-height: 1.55;
+}
+
+@media screen and (max-width: 991px) {
+  .aa-landing .aa-info__large-col {
+    grid-template-columns: 1fr;
+    max-width: 62em;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .aa-landing .aa-info__li-desc { max-width: none; }
+}
+
+/* Variante con formulario: la info se apila a la izquierda y el formulario queda a la derecha,
+   fijo mientras se recorre la lista (requiere overflow: clip en la banda, no hidden). */
+.aa-landing .aa-info__wrap--form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(20em, 27em);
+  align-items: start;
+  gap: var(--aa-gap-xl) clamp(2rem, 5vw, 6rem);
+}
+.aa-landing .aa-info__wrap--form .aa-info__large-col {
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--aa-gap-l);
+}
+/* Las preguntas conservan la jerarquía de los títulos h4 que reemplazan (aa-h-m); el accordion base
+   es de FAQ y usa un tamaño de cuerpo. */
+.aa-landing .aa-info__accordion .aa-accordion__q {
+  font-family: var(--aa-font-display);
+  font-size: var(--aa-text-m);
+  font-weight: var(--aa-weight-semibold);
+  line-height: var(--aa-leading-snug);
+}
+.aa-landing .aa-info__accordion .aa-accordion__a {
+  margin: 0;
+  max-width: 34em;
+  line-height: 1.55;
+}
+.aa-landing .aa-info__aside {
+  position: sticky;
+  top: var(--aa-gap-l);
+}
+
+@media screen and (max-width: 991px) {
+  .aa-landing .aa-info__wrap--form { grid-template-columns: minmax(0, 1fr); }
+  .aa-landing .aa-info__aside { position: static; }
+}

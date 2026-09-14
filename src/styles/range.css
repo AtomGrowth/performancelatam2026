@@ -1,0 +1,139 @@
+/* Barra de rango de cuartiles. Acento solo en el tramo; valores, etiquetas y eje en tinta de
+   texto. La mediana lleva un anillo del color de superficie para separarse del tramo. */
+
+.aa-landing .aa-range {
+  margin: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--aa-gap-l);
+  text-align: left;
+}
+
+.aa-landing .aa-range__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--aa-gap-m) var(--aa-gap-xl);
+}
+.aa-landing .aa-range__caption {
+  max-width: 24em;
+  font-size: var(--aa-text-s);
+  font-weight: var(--aa-weight-semibold);
+  line-height: 1.35;
+  color: var(--aa-fg);
+}
+.aa-landing .aa-range__gap .aa-stat__label { max-width: 16em; }
+
+.aa-landing .aa-range__plot {
+  display: flex;
+  flex-direction: column;
+  gap: var(--aa-gap-xs);
+}
+
+.aa-landing .aa-range__axis {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--aa-font-mono);
+  font-size: var(--aa-text-xs);
+  color: var(--aa-fg-muted);
+}
+
+.aa-landing .aa-range__track {
+  position: relative;
+  height: 8px;
+  border-radius: var(--aa-radius-pill);
+  background: color-mix(in srgb, var(--aa-fg) 14%, transparent);
+}
+.aa-landing .aa-range__iqr {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--aa-from);
+  width: calc(var(--aa-to) - var(--aa-from));
+  border-radius: var(--aa-radius-pill);
+  background: var(--aa-accent);
+}
+.aa-landing .aa-range__median {
+  position: absolute;
+  top: 50%;
+  left: var(--aa-at);
+  width: 4px;
+  height: 24px;
+  border-radius: 2px;
+  background: var(--aa-fg);
+  box-shadow: 0 0 0 2px var(--aa-bg);
+  transform: translate(-50%, -50%);
+}
+
+/* Etiquetas directas bajo cada marca, centradas en su posición del eje. */
+.aa-landing .aa-range__marks {
+  position: relative;
+  margin: 0;
+  min-height: calc(var(--aa-text-l) + 2.75em);
+}
+.aa-landing .aa-range__mark {
+  position: absolute;
+  top: 0;
+  left: var(--aa-at);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2em;
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+.aa-landing .aa-range__mark::before {
+  content: '';
+  order: -2;
+  width: 1px;
+  height: var(--aa-gap-xs);
+  background: var(--aa-fg-muted);
+}
+.aa-landing .aa-range__mark :is(dt, dd) { margin: 0; }
+/* El <dt> va primero en el DOM (semántica); el valor se pinta arriba con order. */
+.aa-landing .aa-range__value {
+  order: -1;
+  font-family: var(--aa-font-display);
+  font-size: var(--aa-text-l);
+  font-weight: var(--aa-weight-bold);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--aa-fg);
+}
+.aa-landing .aa-range__label {
+  font-family: var(--aa-font-mono);
+  font-size: var(--aa-text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--aa-fg-muted);
+}
+
+.aa-landing .aa-range__note {
+  margin: 0;
+  max-width: 44em;
+  font-size: var(--aa-text-xs);
+  line-height: 1.5;
+  color: var(--aa-fg-muted);
+}
+
+/* En móvil las posiciones del eje quedan a pocos píxeles: las etiquetas pasan a una fila de tres
+   columnas bajo la barra, en el mismo orden que las marcas. */
+@media screen and (max-width: 767px) {
+  .aa-landing .aa-range__marks {
+    min-height: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--aa-gap-s);
+    padding-top: var(--aa-gap-xs);
+  }
+  .aa-landing .aa-range__mark {
+    position: static;
+    align-items: flex-start;
+    white-space: normal;
+    transform: none;
+  }
+  .aa-landing .aa-range__mark::before { display: none; }
+  .aa-landing .aa-range__value { font-size: calc(var(--aa-text-l) * 0.75); }
+}

@@ -1,0 +1,174 @@
+/* Mapa de Latinoamérica (geometría del mapa de comunidad de OSMO). Rellenos por el trabajo del
+   dato: acento = países comparados, neutro medio = resto del estudio, neutro claro = contexto.
+   El texto (etiquetas, tooltip, leyenda) va en tinta de texto, nunca en el color de la marca. */
+
+.aa-landing .aa-map {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--aa-gap-m);
+  width: 100%;
+  max-width: 34em;
+  margin-inline: auto;
+}
+
+.aa-landing .aa-map__canvas { position: relative; }
+
+.aa-landing .aa-map__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+/* Filete de superficie entre países: separa rellenos adyacentes sin bordes oscuros. */
+.aa-landing .aa-map__context,
+.aa-landing .aa-map__country {
+  stroke: var(--aa-surface-canvas); /* hueco de superficie entre países */
+  stroke-width: 0.35;
+  stroke-linejoin: round;
+}
+.aa-landing .aa-map__context { fill: var(--aa-neutral-200); }
+
+.aa-landing .aa-map__country {
+  fill: var(--aa-neutral-400);
+  outline: none;
+  transition: fill var(--aa-duration-s) var(--aa-ease);
+}
+.aa-landing .aa-map__country.is--highlight { fill: var(--aa-accent); }
+.aa-landing .aa-map__country:is(:hover, :focus-visible) { fill: var(--aa-neutral-600); }
+.aa-landing .aa-map__country.is--highlight:is(:hover, :focus-visible) {
+  fill: color-mix(in srgb, var(--aa-accent) 78%, var(--aa-neutral-950));
+}
+.aa-landing .aa-map__country:focus-visible {
+  stroke: var(--aa-neutral-950);
+  stroke-width: 0.6;
+}
+
+/* ─── Etiquetas directas de los países comparados ──────────────────────────────── */
+.aa-landing .aa-map__pin {
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+.aa-landing .aa-map__pin::before {
+  content: '';
+  position: absolute;
+  left: -0.35em;
+  top: -0.35em;
+  width: 0.7em;
+  height: 0.7em;
+  border-radius: 50%;
+  background: var(--aa-neutral-950);
+  box-shadow: 0 0 0 2px var(--aa-surface-card);
+}
+.aa-landing .aa-map__pin-label {
+  position: absolute;
+  right: 0.9em;
+  top: 0;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.1em;
+  padding: 0.45em 0.7em;
+  white-space: nowrap;
+  font-size: var(--aa-text-xs);
+  line-height: 1.2;
+  color: var(--aa-neutral-950);
+  background: var(--aa-surface-card);
+  border: 1px solid var(--aa-border);
+  border-radius: var(--aa-radius-m);
+  box-shadow: 0 6px 18px rgba(10, 10, 10, 0.08);
+}
+.aa-landing .aa-map__pin-value {
+  font-family: var(--aa-font-mono);
+  color: var(--aa-neutral-600);
+}
+
+/* ─── Tooltip ──────────────────────────────────────────────────────────────────── */
+.aa-landing .aa-map__tip {
+  position: absolute;
+  z-index: 2;
+  min-width: 12em;
+  padding: 0.7em 0.9em;
+  pointer-events: none;
+  font-size: var(--aa-text-xs);
+  line-height: 1.3;
+  color: var(--aa-neutral-50);
+  background: var(--aa-neutral-950);
+  border-radius: var(--aa-radius-m);
+  transform: translate(-50%, calc(-100% - 0.9em));
+}
+.aa-landing .aa-map__tip[hidden] { display: none; }
+.aa-landing .aa-map__tip-title { display: block; margin-bottom: 0.4em; }
+.aa-landing .aa-map__tip-list {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 0.2em 1em;
+  margin: 0;
+}
+.aa-landing .aa-map__tip-list dt { color: var(--aa-neutral-400); }
+.aa-landing .aa-map__tip-list dd {
+  margin: 0;
+  text-align: right;
+  font-variant-numeric: tabular-nums; /* columna de cifras alineadas */
+}
+
+/* ─── Pie: título + leyenda ────────────────────────────────────────────────────── */
+.aa-landing .aa-map__caption {
+  display: flex;
+  flex-direction: column;
+  gap: var(--aa-gap-xs);
+}
+.aa-landing .aa-map__caption-text {
+  margin: 0;
+  font-size: var(--aa-text-xs);
+  font-weight: var(--aa-weight-semibold);
+  color: var(--aa-fg);
+}
+.aa-landing .aa-map__legend {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--aa-gap-xxs) var(--aa-gap-m);
+  font-size: var(--aa-text-xs);
+  color: var(--aa-fg-muted);
+}
+.aa-landing .aa-map__legend li {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+.aa-landing .aa-map__swatch {
+  width: 0.85em;
+  height: 0.85em;
+  border-radius: 2px;
+}
+.aa-landing .aa-map__swatch--highlight { background: var(--aa-accent); }
+.aa-landing .aa-map__swatch--study     { background: var(--aa-neutral-400); }
+.aa-landing .aa-map__swatch--context   { background: var(--aa-neutral-200); }
+
+.aa-landing .aa-map__note {
+  margin: var(--aa-gap-xxs) 0 0;
+  max-width: 40em;
+  font-size: var(--aa-text-xs);
+  line-height: 1.45;
+  color: var(--aa-fg-muted); /* subtle no da contraste de lectura sobre blanco */
+}
+
+/* ─── Cards compactas junto al mapa ────────────────────────────────────────────── */
+.aa-landing .aa-stat-cards--row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.aa-landing .aa-stat-cards--row .aa-stat-card {
+  gap: var(--aa-gap-s);
+  padding: var(--aa-padding-s);
+}
+
+@media screen and (max-width: 479px) {
+  .aa-landing .aa-stat-cards--row { grid-template-columns: 1fr; }
+}
