@@ -53,14 +53,16 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: clip; /* contiene cualquier desborde horizontal (tablas, scribble) sin romper sticky */
-  isolation: isolate; /* contexto de apilado: contiene el bg fijo (z-index -1) */
+  isolation: isolate; /* contexto de apilado: contiene el bg (z-index -1) */
+  position: relative; /* el bg se ancla a la landing, no al viewport */
 }
 
-/* Fondo fijo global: color claro + textura topográfica con blend, pineado al viewport.
-   Detrás de todo (z-index -1, dentro del contexto de .aa-landing). Las strips light
-   van transparentes y lo dejan ver; las dark lo cubren con su color sólido. */
+/* Fondo global: color claro + textura topográfica con blend, detrás de todo (z-index -1, dentro del
+   contexto de .aa-landing). Las strips light van transparentes y lo dejan ver; las dark lo cubren.
+   absolute y no fixed: como capa aislada, la landing se pinta encima del contenido estático que la
+   sigue en el host, y un bg del alto del viewport tapaba el footer de Webflow al llegar a él. */
 .aa-landing .aa-bg-fixed {
-  position: fixed;
+  position: absolute;
   inset: 0;
   z-index: -1;
   isolation: isolate; /* el multiply de la textura solo mezcla con el color de este bg */
