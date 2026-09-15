@@ -85,6 +85,19 @@ países/industrias bajo el mapa (Card Header 1 + Stat Card 7), tabla y cuartiles
 Pendientes con hueco: países/industrias en canvas, tabla en card, cuartiles en card-dark,
 descarga en media (cierre).
 
+## SEO / GEO
+
+El HTML servido por Webflow solo trae el embed: sin JS no hay contenido, y los crawlers de IA no
+ejecutan JS. `scripts/seo-snapshot.mjs` arma desde `content.ts` el texto de la página como HTML
+plano con `hidden` (h1, h2 por sección, cifras formateadas) y va pegado DENTRO del div de montaje
+en el Embed de Webflow; el bundle lo reemplaza al arrancar. Solo lleva lo que la página muestra
+(nada exclusivo del snapshot: sería cloaking). Tras cambiar copy o cifras:
+`node scripts/seo-snapshot.mjs > public/seo-snapshot.html` y volver a pegarlo en el Embed.
+
+Webflow (página `6aa870d43f5e8a31bc084a54`, slug `estudio-performance-whatsapp-latam-2026`): title,
+description y JSON-LD (`WebPage` + `Report` + `Organization`) viven en los settings de la página.
+El letter ripple crea la capa superior al primer hover para que el H1 no se indexe triplicado.
+
 ## Tests
 
 `node --test test/study.test.ts` (Node 22.18+ ejecuta TS sin build). Cruza métricas derivadas
