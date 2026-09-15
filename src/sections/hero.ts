@@ -42,7 +42,10 @@ function lockupLine(...parts: (string | HTMLElement)[]): HTMLElement {
   const line = document.createElement('span');
   line.className = 'aa-hero__line';
   line.setAttribute('data-aa-fade', '');
-  parts.forEach((part) => {
+  // Espacio real entre piezas: flex ignora los nodos de solo espacio (el layout no cambia), pero
+  // sin ellos el texto indexable del H1 salía pegado ("PerformanceenWhatsApp").
+  parts.forEach((part, i) => {
+    if (i > 0) line.append(' ');
     line.appendChild(typeof part === 'string' ? renderRipple(part) : part);
   });
   return line;
@@ -61,7 +64,9 @@ function buildLockup(): HTMLElement {
 
   title.append(
     lockupLine('Performance'),
+    ' ',
     lockupLine('en', buildVideo(), renderRipple('WhatsApp', 'aa-hero__brand')),
+    ' ',
     lockupLine(arrow, 'LATAM 2026'),
   );
   return title;
