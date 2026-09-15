@@ -6,8 +6,11 @@
   padding-bottom: var(--aa-padding-xl);
 }
 
-/* Titular centrado; 88svh deja asomar la strip siguiente. */
+/* Titular centrado; 88svh deja asomar la strip siguiente. El tope de ancho es también el tope del
+   titular: su tamaño sale del ancho del frame (cqi), sin él crecía sin límite en ultrawide. */
 .aa-landing .aa-hero__frame {
+  max-width: var(--aa-hero-max);
+  margin-inline: auto;
   min-height: 88svh;
   display: grid;
   /* Sin esto la columna implícita crece al min-content de las líneas nowrap y el titular se
