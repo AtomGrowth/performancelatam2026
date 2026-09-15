@@ -92,6 +92,14 @@
   opacity: 0.06;
 }
 
+/* canvas: ahora sigue directo a una banda accent a sangre (aa-mejorar tras aa-metrica); en
+   mobile/tablet el padding-block por defecto se sentía corto tras el corte de color. */
+@media screen and (max-width: 991px) {
+  .aa-landing [data-aa-surface="canvas"] {
+    padding-top: var(--aa-padding-xxl);
+  }
+}
+
 /* ─── Bloques: fusión ─────────────────────────────────────────────────────────── */
 /* Las bandas de color van a sangre y pegadas, sin radio ni separación: el ritmo lo da el cambio
    de superficie. Una sección con join continúa el bloque anterior sin repetir su padding. */

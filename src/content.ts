@@ -246,6 +246,31 @@ export const SECTIONS: SectionContent[] = [
     ],
   },
   {
+    kind: 'info',
+    id: 'aa-mejorar',
+    surface: 'canvas',
+    form: true,
+    heading: 'De medir la performance a mejorarla',
+    items: [
+      {
+        title: 'Trazabilidad de principio a fin',
+        desc: 'Conecta las conversaciones de WhatsApp con la información comercial de cada cliente para entender qué campaña originó una conversación, qué ocurrió dentro de ella y qué resultado terminó generando. Así entiendes mejor a tu perfil de clientes y enfocas el esfuerzo en oportunidades reales.',
+      },
+      {
+        title: 'Automatiza tareas repetitivas dentro de la conversación',
+        desc: 'La IA en WhatsApp puede identificar intención, calificar oportunidades, cotizar, agendar y activar el siguiente paso de una conversación. Esto ayuda a avanzar más rápido hacia un resultado y a reducir interacciones innecesarias.',
+      },
+      {
+        title: 'Recuperación de oportunidades',
+        desc: 'Identifica conversaciones que se detuvieron y activa seguimientos para volver a ponerlas en movimiento. Así dejas de perder leads que demostraron interés pero no avanzaron en algún momento.',
+      },
+      {
+        title: 'Información para optimizar la inversión',
+        desc: 'La conexión entre WhatsApp, CRM y plataformas publicitarias permite entender qué campañas terminan generando oportunidades y ventas, para que marketing pueda optimizar su inversión en función de resultados comerciales.',
+      },
+    ],
+  },
+  {
     kind: 'stats',
     id: 'aa-recorrido',
     surface: 'card',
@@ -284,31 +309,6 @@ export const SECTIONS: SectionContent[] = [
       'Durante años, muchas empresas han evaluado WhatsApp principalmente por volumen. A partir de esta pregunta, puedes comparar tu tasa de entrega, lectura y respuesta, además de los mensajes que necesitas para conseguir una respuesta, frente a referencias de tu país, industria u operaciones con distintos niveles de desempeño.',
       'No debes enfocarte solamente en conocer el promedio, sino en encontrar el punto de referencia para entender dónde te encuentras y cuánto margen de mejora puede existir.',
       'Estos resultados describen las operaciones incluidas en ese periodo. Úsalos como punto de referencia para comparar tu operación con tu país, tu industria y otras empresas.',
-    ],
-  },
-  {
-    kind: 'info',
-    id: 'aa-mejorar',
-    surface: 'canvas',
-    form: true,
-    heading: 'De medir la performance a mejorarla',
-    items: [
-      {
-        title: 'Trazabilidad de principio a fin',
-        desc: 'Conecta las conversaciones de WhatsApp con la información comercial de cada cliente para entender qué campaña originó una conversación, qué ocurrió dentro de ella y qué resultado terminó generando. Así entiendes mejor a tu perfil de clientes y enfocas el esfuerzo en oportunidades reales.',
-      },
-      {
-        title: 'Automatiza tareas repetitivas dentro de la conversación',
-        desc: 'La IA en WhatsApp puede identificar intención, calificar oportunidades, cotizar, agendar y activar el siguiente paso de una conversación. Esto ayuda a avanzar más rápido hacia un resultado y a reducir interacciones innecesarias.',
-      },
-      {
-        title: 'Recuperación de oportunidades',
-        desc: 'Identifica conversaciones que se detuvieron y activa seguimientos para volver a ponerlas en movimiento. Así dejas de perder leads que demostraron interés pero no avanzaron en algún momento.',
-      },
-      {
-        title: 'Información para optimizar la inversión',
-        desc: 'La conexión entre WhatsApp, CRM y plataformas publicitarias permite entender qué campañas terminan generando oportunidades y ventas, para que marketing pueda optimizar su inversión en función de resultados comerciales.',
-      },
     ],
   },
 ];

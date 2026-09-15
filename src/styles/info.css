@@ -91,7 +91,11 @@
   top: var(--aa-gap-l);
 }
 
+/* Apilado en mobile: el form primero (column-reverse invierte el orden del DOM heading+accordion → form). */
 @media screen and (max-width: 991px) {
-  .aa-landing .aa-info__wrap--form { grid-template-columns: minmax(0, 1fr); }
+  .aa-landing .aa-info__wrap--form {
+    display: flex;
+    flex-direction: column-reverse;
+  }
   .aa-landing .aa-info__aside { position: static; }
 }
