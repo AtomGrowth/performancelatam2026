@@ -85,7 +85,9 @@
 
 
 /* ─── Responsive ─────────────────────────────────────────────────────────────── */
+/* La navbar de la página host es fija y sin centrado vertical el titular quedaba debajo de ella. */
 @media screen and (max-width: 991px) {
+  .aa-landing .aa-hero { padding-top: var(--aa-nav-height); }
   .aa-landing .aa-hero__frame { min-height: 0; }
   .aa-landing .aa-hero__lockup { padding-block: var(--aa-padding-l); }
 }
